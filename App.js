@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Alert 
 const Alcometer = () => {
 
   const [weight, setWeight] = useState('');
-  const [sex, setSex] = useState('male');
+  const [gender, setGender] = useState('male');
   const [drinks, setDrinks] = useState('');
   const [hours, setHours] = useState('');
   const [bac, setBac] = useState(0);
@@ -14,7 +14,7 @@ const Alcometer = () => {
       const grams = alcoholConsumed * 8 * 4.5;
       const burning = weight / 10;
       const gramsLeft = grams - burning * hours;
-      const r = sex === 'male' ? 0.70 : 0.60;
+      const r = gender === 'male' ? 0.70 : 0.60;
       const bacResult = gramsLeft / (weight * r);
       setBac(bacResult.toFixed(2));
     };
@@ -30,7 +30,12 @@ const Alcometer = () => {
           color: 'red'
         }
       }
-      if(bac<0 == NaN){
+      if(bac < 0.5 && bac>0){
+          return{
+            color: 'green'
+          }
+      }
+      if(bac<0 && bac <-0){
         return{
           display: 'none'
         }
@@ -75,18 +80,18 @@ const Alcometer = () => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Sex:</Text>
+        <Text style={styles.inputLabel}>Gender:</Text>
           <TouchableOpacity
-            style={[styles.sexButton, sex === 'male' && styles.selected]}
-            onPress={() => setSex('male')}
+            style={[styles.genderButton, gender === 'male' && styles.selected]}
+            onPress={() => setGender('male')}
           >
-            <Text style={styles.sexText}>Male</Text>
+            <Text>Male</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.sexButton, sex === 'female' && styles.selected]}
-            onPress={() => setSex('female')}
+            style={[styles.genderButton, gender === 'female' && styles.selected]}
+            onPress={() => setGender('female')}
           >
-            <Text style={styles.sexText}>Female</Text>
+            <Text>Female</Text>
           </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={() => calculate()} style={styles.calculateButton}>
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 40,
     color: '#525252',
   },
   inputContainer: {
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: '40px',
   },
-  sexButton: {
+  genderButton: {
     width: '30%',
     height: 40,
     borderColor: 'gray',
