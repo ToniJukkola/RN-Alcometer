@@ -139,7 +139,9 @@ const Alcometer = () => {
       <View style={[styles.resultContainer, Theme]}>
       <Text style={[styles.resultText, Theme, resultColor()]}>Your blood alcohol level:</Text>
         <Text style={[styles.resultText, Theme, resultColor()]}>{bac}</Text>
+        <Text style={[styles.authorText, Theme]}>Author: Toni Jukkola</Text>
       </View>
+      
     </View>
   </ScrollView>
   );

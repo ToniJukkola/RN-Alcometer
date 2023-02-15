@@ -77,4 +77,7 @@ export default StyleSheet.create({
     selected: {
       backgroundColor: 'lightblue',
     },
+    authorText: {
+        marginTop: 50,
+    },
   });
