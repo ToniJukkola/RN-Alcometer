@@ -102,13 +102,13 @@ const Alcometer = () => {
             style={[styles.genderButton, gender === 'male' && styles.selected]}
             onPress={() => setGender('male')}
           >
-            <Text style={[styles.genderButtonText]}>Male</Text>
+            <Text>Male</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.genderButton, gender === 'female' && styles.selected]}
             onPress={() => setGender('female')}
           >
-            <Text style={[styles.genderButtonText]}>Female</Text>
+            <Text>Female</Text>
           </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={() => calculate()} style={[styles.calculateButton]}>
