@@ -8,7 +8,10 @@ const Alcometer = () => {
   const [drinks, setDrinks] = useState('');
   const [hours, setHours] = useState('');
   const [bac, setBac] = useState(0);
-  const [isDarkMode, setIsDarkMode] = useState(Appearance.getColorScheme() === 'dark');
+  const [isDarkMode, setIsDarkMode] = useState(Appearance.getColorScheme() === 'light');
+
+
+  const Theme = isDarkMode ? styles.darkTheme : styles.lightTheme;
 
     const calculate = () => {
       const alcoholConsumed = drinks * 0.33; 
@@ -20,12 +23,18 @@ const Alcometer = () => {
       setBac(bacResult.toFixed(2));
     };
 
+    const clearInputs = () => {
+      setWeight('');
+      setGender('male');
+      setDrinks('');
+      setHours('');
+      setBac(0);
+    };
+
     const toggleDarkMode = () => {
       setIsDarkMode(!isDarkMode);
     };
-  
-    const Theme = isDarkMode ? styles.darkTheme : styles.lightTheme;
-
+    
     const resultColor = () => {
       if(bac>= 0.5 && bac <1){
         return{
@@ -113,6 +122,9 @@ const Alcometer = () => {
       </View>
       <TouchableOpacity onPress={() => calculate()} style={[styles.calculateButton]}>
         <Text style={styles.calculateButtonText}>Calculate</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => clearInputs()} style={[styles.calculateButton]}>
+        <Text style={styles.calculateButtonText}>Clear all</Text>
       </TouchableOpacity>
       <View style={[styles.resultContainer, Theme]}>
       <Text style={[styles.resultText, Theme, resultColor()]}>Your blood alcohol level:</Text>
