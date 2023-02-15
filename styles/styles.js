@@ -17,7 +17,8 @@ export default StyleSheet.create({
     headerText: {
       fontSize: 40,
       fontWeight: 'bold',
-      marginBottom: 40
+      marginBottom: 40,
+      marginTop: 100,
     },
     switchContainer: {
       margin: 20,
@@ -66,12 +67,12 @@ export default StyleSheet.create({
     },
     resultContainer: {
       marginTop: 20,
+      marginBottom: 200,
       alignItems: 'center'
     },
     resultText: {
       fontSize: 20,
-      fontWeight: 'bold'
-      
+      fontWeight: 'bold',
     },
     selected: {
       backgroundColor: 'lightblue',

@@ -69,6 +69,7 @@ const Alcometer = () => {
     };
 
   return (
+  <ScrollView>
     <View style={[styles.container, Theme]}>
       <Text style={[styles.headerText, Theme]}>Alcometer</Text>
       <View style={styles.switchContainer}>
@@ -140,6 +141,7 @@ const Alcometer = () => {
         <Text style={[styles.resultText, Theme, resultColor()]}>{bac}</Text>
       </View>
     </View>
+  </ScrollView>
   );
 };
 export default Alcometer;
