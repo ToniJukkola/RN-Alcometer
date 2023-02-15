@@ -14,6 +14,10 @@ const Alcometer = () => {
   const Theme = isDarkMode ? styles.darkTheme : styles.lightTheme;
 
     const calculate = () => {
+      if (!weight || !drinks || !hours) {
+        window.alert('Please fill in all required fields');
+        return;
+      }
       const alcoholConsumed = drinks * 0.33; 
       const grams = alcoholConsumed * 8 * 4.5;
       const burning = weight / 10;
@@ -52,9 +56,9 @@ const Alcometer = () => {
           }
       }
       if(bac<0 && bac <-0){
-        return{
-          display: 'none'
-        }
+         window.alert('Negative result, try again'),
+          clearInputs();
+          return;
       }
   
     };
