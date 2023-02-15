@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Alert, Switch, Appearance } from 'react-native';
 
 const Alcometer = () => {
 
@@ -8,6 +8,7 @@ const Alcometer = () => {
   const [drinks, setDrinks] = useState('');
   const [hours, setHours] = useState('');
   const [bac, setBac] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(Appearance.getColorScheme() === 'dark');
 
     const calculate = () => {
       const alcoholConsumed = drinks * 0.33; 
@@ -18,6 +19,12 @@ const Alcometer = () => {
       const bacResult = gramsLeft / (weight * r);
       setBac(bacResult.toFixed(2));
     };
+
+    const toggleDarkMode = () => {
+      setIsDarkMode(!isDarkMode);
+    };
+  
+    const Theme = isDarkMode ? styles.darkTheme : styles.lightTheme;
 
     const resultColor = () => {
       if(bac>= 0.5 && bac <1){
@@ -44,12 +51,22 @@ const Alcometer = () => {
     };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>Alcometer</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Weight (kg):</Text>
+    <View style={[styles.container, Theme]}>
+      <Text style={[styles.headerText, Theme]}>Alcometer</Text>
+      <View style={styles.switchContainer}>
+        <Text style={[styles.switchLabel, Theme]}>Light/Darkmode</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleDarkMode}
+          value={isDarkMode}
+        />
+      </View>
+      <View style={[styles.inputContainer, Theme]}>
+        <Text style={[styles.inputLabel, Theme]}>Weight (kg):</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, Theme]}
           keyboardType='numeric'
           returnKeyType={'done'}
           value={weight}
@@ -57,10 +74,10 @@ const Alcometer = () => {
           maxLength={3}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Number of drinks:</Text>
+      <View style={[styles.inputContainer, Theme]}>
+        <Text style={[styles.inputLabel, Theme]}>Number of drinks:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, Theme]}
           keyboardType='numeric'
           returnKeyType={'done'}
           value={drinks}
@@ -68,10 +85,10 @@ const Alcometer = () => {
           maxLength={2}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Time (hours):</Text>
+      <View style={[styles.inputContainer, Theme]}>
+        <Text style={[styles.inputLabel, Theme]}>Time (hours):</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input,Theme]}
           keyboardType='numeric'
           returnKeyType={'done'}
           value={hours}
@@ -79,27 +96,27 @@ const Alcometer = () => {
           maxLength={2}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Gender:</Text>
+      <View style={[styles.inputContainer,Theme]}>
+        <Text style={[styles.inputLabel,Theme]}>Gender:</Text>
           <TouchableOpacity
             style={[styles.genderButton, gender === 'male' && styles.selected]}
             onPress={() => setGender('male')}
           >
-            <Text>Male</Text>
+            <Text style={[styles.genderButtonText]}>Male</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.genderButton, gender === 'female' && styles.selected]}
             onPress={() => setGender('female')}
           >
-            <Text>Female</Text>
+            <Text style={[styles.genderButtonText]}>Female</Text>
           </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => calculate()} style={styles.calculateButton}>
+      <TouchableOpacity onPress={() => calculate()} style={[styles.calculateButton]}>
         <Text style={styles.calculateButtonText}>Calculate</Text>
       </TouchableOpacity>
-      <View style={styles.resultContainer}>
-      <Text>Your blood alcohol level:</Text>
-        <Text style={[styles.resultText, resultColor()]}>{bac}</Text>
+      <View style={[styles.resultContainer, Theme]}>
+      <Text style={[styles.resultText, Theme, resultColor()]}>Your blood alcohol level:</Text>
+        <Text style={[styles.resultText, Theme, resultColor()]}>{bac}</Text>
       </View>
     </View>
   );
@@ -110,13 +127,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  },
+  lightTheme: {
+    backgroundColor: '#f5fcff',
+    color: '#000000',
+  },
+  darkTheme: {
+    backgroundColor: '#1a1a1a',
+    color: '#FFFFFF',
   },
   headerText: {
     fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 40,
-    color: '#525252',
+    marginBottom: 40
+  },
+  switchContainer: {
+    margin: 20,
+    flexDirection: 'row',
+    alignItems: 'right',
   },
   inputContainer: {
     width: '80%',
@@ -160,16 +188,15 @@ const styles = StyleSheet.create({
   },
   resultContainer: {
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   resultText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#525252',
+    fontWeight: 'bold'
     
   },
   selected: {
-    backgroundColor: 'lightblue'
+    backgroundColor: 'lightblue',
   },
 });
 
