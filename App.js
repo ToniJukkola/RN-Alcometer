@@ -60,6 +60,11 @@ const Alcometer = () => {
           clearInputs();
           return;
       }
+      if(weight > 300 || drinks > 50 || hours > 30){
+        window.alert('Parameters are wrong, try again'),
+         clearInputs();
+         return;
+     }
   
     };
 
@@ -67,7 +72,7 @@ const Alcometer = () => {
     <View style={[styles.container, Theme]}>
       <Text style={[styles.headerText, Theme]}>Alcometer</Text>
       <View style={styles.switchContainer}>
-        <Text style={[styles.switchLabel, Theme]}>Light/Darkmode</Text>
+        <Text style={[styles.switchLabel, Theme]}>Light/Darkmode </Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
